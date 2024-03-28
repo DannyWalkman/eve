@@ -1,0 +1,446 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background: #000;
+    position: relative;
+}
+
+#ev {
+    width: 2560px;
+    height: 720px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: absolute;
+    top: calc((100vh - 720px) / 2);
+    left: calc((100% - 2560px) / 2);
+    cursor: none;
+    border: 1px solid #212121;
+
+    * {
+        cursor: none;
+    }
+}
+
+.blob-container {
+    position: relative;
+    width: 100%;
+    height: 720px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.75s cubic-bezier(.37,.77,.33,1.02);
+}
+
+.slider-container {
+    width: 100%;
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(0.1);
+    transition: all 0.75s cubic-bezier(.37,.77,.33,1.02);
+    opacity: 0;
+
+    .menu {
+        width: 400px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        ul {
+            list-style: none;
+            padding-left: 120px;
+            li {
+                font-size: 50px;
+                line-height: 60px;
+                padding: 0px 25px;
+                font-family: Lato;
+                white-space: nowrap;
+                color: #444;
+                font-weight: 700;
+                text-transform: uppercase;
+
+                &.active {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+.background-container {
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+        width: 500px;
+        height: 500px;
+        overflow: visible;
+        opacity: 0.5;
+    }
+
+}
+
+#eve {
+    overflow: visible;
+    position: relative;
+    width: 400px;
+    height: 400px;
+    animation: levitation 1s infinite linear alternate;
+    transition: all 0.75s ease-out;
+    pointer-events: none;
+     * {
+         pointer-events: none;
+     }
+}
+
+#ev.switch {
+    .blob-container {
+        opacity: 1;
+
+        pointer-events: none;
+        z-index: 89;
+        // mix-blend-mode: overlay;
+        animation: scale-up 0.70s cubic-bezier(.37,.77,.33,1.02) forwards;
+    }
+    .slider-container {
+        transform: scale(1);
+        opacity: 1;
+        z-index: 90;
+        transition-delay: 0.2s;
+    }
+    .background-container {
+        opacity: 0.3;
+    }
+}
+
+@keyframes scale-up {
+    from {transform: scale(1) rotate(0deg); opacity: 1}
+    17.9%, 18%, 21%, 100% {filter: grayscale(100);}
+    18%, 21% {transform: scale(0.6) rotate(0deg); opacity: 1}
+    to {transform: scale(5) rotate(180deg); opacity: 0.10}
+}
+
+.stroked {
+    fill: transparent;
+    stroke-width: 1.0;
+    stroke: #fff;
+}
+
+@keyframes levitation {
+    from {
+        margin-top: -5px;
+    }
+    to {
+        margin-top: 5px;
+    }
+}
+
+.cursor {
+    width: 30px;
+    height: 30px;
+    border: 1px solid white;
+    border-radius: 50%;
+    position: absolute;
+    animation: cursorAnim 1.5s infinite alternate;
+    transition: none;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transform-origin: top left;
+    opacity: 0.3;
+    z-index: 1000;
+}
+
+.cursor::after {
+    content: "";
+    width: 30px;
+    height: 30px;
+    display: block;
+    position: absolute;
+    border: 10px solid gray;
+    border-radius: 50%;
+    opacity: .5;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: cursorAnim2 .5s infinite alternate;
+    transform-origin: top left;
+}
+
+@keyframes cursorAnim {
+    from {
+        transform: scale(1) translate(-50%, -50%);
+    }
+    to {
+        transform: scale(.8) translate(-50%, -50%);
+    }
+}
+
+@keyframes cursorAnim2 {
+    from {
+        transform: scale(1) translate(-50%, -50%);
+    }
+    to {
+        transform: scale(.8) translate(-50%, -50%);
+    }
+}
+
+@keyframes cursorAnim3 {
+    0% {
+        transform: scale(1) translate(-50%, -50%);
+    }
+    50% {
+        transform: scale(3) translate(-50%, -50%);
+    }
+    100% {
+        transform: scale(1) translate(-50%, -50%);
+        opacity: 0;
+    }
+}
+
+.expand {
+    animation: cursorAnim3 .5s forwards;
+    border: 1px solid #fff;
+}
+
+@for $i from 1 to 50 {
+    $j: $i + 4;
+    $opacity: $j / 500;
+    #eve-lines .path#{$i} {
+        opacity: 0.3 - $opacity;
+    }
+}
+
+#eve path {pointer-events: none;}
+
+#path1 {
+    opacity: 0.15
+}
+
+#path2 {
+    opacity: 0.25
+}
+
+#path3 {
+    opacity: 0.30
+}
+
+#path4 {
+    opacity: 0.35
+}
+
+#path5 {
+    opacity: 0.40
+}
+
+#path6 {
+    opacity: 0.60
+}
+
+#path7 {
+    opacity: 0.65
+}
+
+.background-container svg .path1 {
+    opacity: 0!important;
+}
+.inner-contents {
+    width: 100%;
+    height: 720px;
+
+    .page {
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        height: 720px;
+        transform: scale(0);
+        height:0;
+        transition: all 0.75s ease-in-out;
+
+        img {
+            display: block;
+            width: 100%;
+        }
+
+        &.active {
+            transform: scale(1);
+            height: 720px;
+        }
+    }
+}
+.ev-slider {
+    width: 100%;
+    height: 720px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: stretch;
+    .ev-slides {
+        flex-grow: 1;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        .slide {
+            width: 50%;
+            height: 720px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.75s cubic-bezier(.37,.77,.33,1.02);
+            position: absolute;
+            color: #fff;
+            margin: auto;
+            img {
+                display: block;
+                width: 100%;
+            }
+        }
+    }
+    .ev-controls {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        position: absolute;
+        z-index: 1000;
+        bottom: 0;
+        flex-direction: row-reverse;
+        opacity: 0;
+        button {
+            width: 100%;
+            border: none;
+            color: #fff;
+            background: transparent;
+            outline: none;
+            &:active {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+}
+
+.ev-slider[data-slide-one="one"][data-slide-two="two"] {
+    .one {
+        left: 0;
+        z-index: 10;
+    }
+    .two {
+        left: 50%;
+        z-index: 10;
+    }
+    .three {
+        z-index: 1;
+        transform: scale(0.7);
+        filter: blur(20px);
+        left: 25%;
+    }
+}
+
+.ev-slider[data-slide-one="two"][data-slide-two="three"] {
+    .two {
+        left: 0;
+        z-index: 10;
+    }
+    .three {
+        left: 50%;
+        z-index: 10;
+    }
+    .one {
+        z-index: 1;
+        transform: scale(0.7);
+        filter: blur(20px);
+        left: 25%;
+    }
+}
+
+.ev-slider[data-slide-one="three"][data-slide-two="one"] {
+    .three {
+        left: 0;
+        z-index: 10;
+    }
+    .one {
+        left: 50%;
+        z-index: 10;
+    }
+    .two {
+        z-index: 1;
+        transform: scale(0.7);
+        filter: blur(20px);
+        left: 25%;
+    }
+}
+
+#sideMenu {
+    background: transparent;
+    transition: all 0.6s cubic-bezier(.83, -0.19, .3, 1.15);
+    overflow: visible;
+    position: absolute;
+    top: 0;
+    left:0;
+    bottom:0;
+    z-index: 200;
+
+    &.active {
+        .level0 span {
+            transform: scale(0.5);
+            filter: blur(20px);
+            pointer-events: none;
+        }
+    }
+
+    .side-nav,
+    .side-nav-item {
+      position: static;
+      list-style-type: none;
+    }
+
+    .side-nav-sub-nav {
+      display: flex;
+      position: absolute;
+      left: 100%;
+      height:720px;
+      top:0;
+        flex-direction: column;
+        justify-content: center;
+      opacity:0;
+      padding-left: 140px;
+      transition: all 0.6s cubic-bezier(.83, -0.19, .3, 1.15);
+
+      li {
+          color: #666;
+      }
+      &.active {
+        left: 50px;
+        opacity: 1;
+
+      }
+    }
+  }
+
+
+  .ev-slider .slide.one .abs {
+      position: absolute;
+  }
+
+  .page img.abs {
+    position: absolute;
+}
